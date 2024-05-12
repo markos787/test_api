@@ -20,7 +20,7 @@ class BlogPostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=BlogPostSerializer
     lookup_field='pk'
 
-class PlogPostList(APIView):
+class BlogPostList(APIView):
     def get(self, request, format=None):
         #Get title from the query parameters (if none, default to empty string)
         title=request.query_params.get('title', '')
