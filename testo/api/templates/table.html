@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zasadzki Data</title>
+</head>
+<body>
+    <h1>Zasadzki Data</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>gid</th>
+                <th>typ</th>
+                <th>ranking</th>
+            </tr>
+        </thead>
+        <tbody id="data-table-body">
+            <!-- Data will be populated here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        fetch('/zasadzki/')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('data-table-body');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.gid}</td>
+                        <td>${item.typ}</td>
+                        <td>${item.ranking}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>

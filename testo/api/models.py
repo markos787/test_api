@@ -1,10 +1,14 @@
 from django.db import models
 
 # Create your models here.
-class BlogPost(models.Model):
-    title=models.CharField(max_length=100)
-    content=models.TextField()
-    published_date=models.DateTimeField(auto_now_add=True)
+class zasadzki(models.Model):
+    gid=models.TextField()
+    typ=models.TextField()
+    ranking=models.TextField()
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        managed=False
+        db_table='zasadzki'

@@ -1,37 +1,59 @@
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import BlogPost
-from .serializers import BlogPostSerializer
+from .models import zasadzki
+from .serializers import zasadzkiSerializer
 from rest_framework.views import APIView
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
-class BlogPostListCreate(generics.ListCreateAPIView):
-    queryset=BlogPost.objects.all()
-    serializer_class=BlogPostSerializer
+# class zasadzkiListCreate(generics.ListCreateAPIView):
+#     queryset=zasadzki.objects.all()
+#     serializer_class=zasadzkiSerializer
 
-    def delete(self, request, *args, **kwargs):
-        BlogPost.objects.all().delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     def delete(self, request, *args, **kwargs):
+#         zasadzki.objects.all().delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+#     def select_related(self, request, *args, **kwargs):
+#         zasadzki.objects.all().select_related()
+#         return Response(status=status.HTTP_302_FOUND)
 
-class BlogPostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset=BlogPost.objects.all()
-    serializer_class=BlogPostSerializer
+def filter_zasadzki(queryset, request):
+    search_filter = SearchFilter()
+    filter_backend = DjangoFilterBackend()
+    
+    # Apply search filter
+    queryset = search_filter.filter_queryset(request, queryset, view=None)
+    # Apply filter backend
+    queryset = filter_backend.filter_queryset(request, queryset, view=None)
+    
+    return queryset
+
+class zasadzkiSearchView(generics.ListAPIView):
+    queryset=zasadzki.objects.all()
+    serializer_class=zasadzkiSerializer
+    filter_backends=[SearchFilter, DjangoFilterBackend]
+    search_fields=['typ']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return filter_zasadzki(queryset, self.request)
+
+class zasadzkiRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset=zasadzki.objects.all()
+    serializer_class=zasadzkiSerializer
     lookup_field='pk'
-
-class BlogPostList(APIView):
+    
+class zasadzkiList(APIView):
     def get(self, request, format=None):
-        #Get title from the query parameters (if none, default to empty string)
-        title=request.query_params.get('title', '')
-
-        if title:
-            #Filter the queryset based on the title
-            blog_posts=BlogPost.objects.filter(title__icontains=title)
-        else:
-            #If no title is provided, return all blog posts
-            blog_posts-BlogPost.objects.all()
-        
-        serializer=BlogPostSerializer(blog_posts, many=True)
+        queryset = zasadzki.objects.all()
+        queryset = filter_zasadzki(queryset, request)
+        serializer = zasadzkiSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def zasadzki_table(request):
+        return render(request, 'table.html')
     
