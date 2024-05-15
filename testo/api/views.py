@@ -47,13 +47,15 @@ class zasadzkiRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=zasadzkiSerializer
     lookup_field='pk'
     
-class zasadzkiList(APIView):
+class zasadzkiView(APIView):
     def get(self, request, format=None):
         queryset = zasadzki.objects.all()
-        queryset = filter_zasadzki(queryset, request)
+        id_param = request.GET.get('id', None)
+        if id_param is not None and id_param != '':
+            queryset = queryset.filter(id=id_param)
         serializer = zasadzkiSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def zasadzki_table(request):
-        return render(request, 'table.html')
+def zasadzki_table(request):
+    return render(request, 'table.html')
     
