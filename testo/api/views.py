@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
-from .models import zasadzki
-from .serializers import zasadzkiSerializer
+from .models import zasadzki, Location
+from .serializers import zasadzkiSerializer, LocationSerializer
 from rest_framework.views import APIView
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -59,3 +59,6 @@ class zasadzkiView(APIView):
 def zasadzki_table(request):
     return render(request, 'table.html')
     
+class LocationView(viewsets.ModelViewSet):
+    queryset=Location.objects.all()
+    serializer_class=LocationSerializer
