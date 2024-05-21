@@ -29,7 +29,14 @@
         }).addTo(map);
 
         // Dodanie danych jako warstwa GeoJSON
-        L.geoJSON(locations).addTo(map);
+        var geojsonLayer = L.geoJSON(locations, {
+            onEachFeature: function (feature, layer) {
+                var popupContent = "<b>GID: </b>" + feature.properties.gid + "<br>" +
+                                   "<b>Typ: </b>" + feature.properties.typ + "<br>" +
+                                   "<b>Ranking: </b>" + feature.properties.ranking;
+                layer.bindPopup(popupContent); // Ustawienie zawartości pop-up'u
+            }
+        }).addTo(map);
 
         // Ustawienie widoku na podstawie bounding box
         var bbox = {{ bbox|safe }};
@@ -44,5 +51,14 @@
             map.setView([0, 0], 2);
         }
     </script>
+    <h2>Types of ambushes</h2>
+    <p>
+        0 - line ambush<br>
+        1 - L-type ambush<br>
+        2 - U-type ambush<br>
+        3 - V-type ambush<br>
+        4 - X-type ambush<br>
+        5 - no data
+    </p>
 </body>
 </html>
