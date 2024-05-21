@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'rest_framework_gis',
-    'django_filters'
+    'django_filters',
+    'django.contrib.gis',
 ]
 
 REST_FRAMEWORK = {
@@ -86,12 +87,12 @@ WSGI_APPLICATION = 'testo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'Geodeta102!',
-        'HOST': 'localhost',  # Adres hosta, na którym działa baza danych
-        'PORT': '5433',       # Port, na którym nasłuchuje baza danych PostgreSQL (domyślnie 5432)
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
 
