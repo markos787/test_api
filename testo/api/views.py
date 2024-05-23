@@ -8,20 +8,12 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.renderers import JSONRenderer
 from django.contrib.gis.db.models import Extent
+import django_filters
 
 # Create your views here.
 
-# class zasadzkiListCreate(generics.ListCreateAPIView):
-#     queryset=zasadzki.objects.all()
-#     serializer_class=zasadzkiSerializer
-
-#     def delete(self, request, *args, **kwargs):
-#         zasadzki.objects.all().delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-#     def select_related(self, request, *args, **kwargs):
-#         zasadzki.objects.all().select_related()
-#         return Response(status=status.HTTP_302_FOUND)
+def main_view(request):
+    return render(request, 'main_view.html')
 
 def filter_zasadzki(queryset, request):
     search_filter = SearchFilter()
@@ -34,20 +26,21 @@ def filter_zasadzki(queryset, request):
     
     return queryset
 
+class zasadzkiFilter(django_filters.FilterSet):
+    typ = django_filters.CharFilter(label='Typ')
+
+    class Meta:
+        model = zasadzki
+        fields = ['typ']
+
 class zasadzkiSearchView(generics.ListAPIView):
     queryset=zasadzki.objects.all()
     serializer_class=zasadzkiSerializer
-    filter_backends=[SearchFilter, DjangoFilterBackend]
-    search_fields=['typ']
+    filterset_class=zasadzkiFilter
 
     def get_queryset(self):
         queryset = super().get_queryset()
         return filter_zasadzki(queryset, self.request)
-
-class zasadzkiRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset=zasadzki.objects.all()
-    serializer_class=zasadzkiSerializer
-    lookup_field='pk'
     
 class zasadzkiView(APIView):
     def get(self, request, format=None):

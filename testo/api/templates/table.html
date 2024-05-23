@@ -73,6 +73,12 @@
 </head>
 <body>
     <h1>Zasadzki Table</h1>
+    <div>
+        <a href="{% url 'main-view' %}"><button>Menu</button></a>
+        <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
+        <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
+        <a href="{% url 'zasadzki-map' %}"><button>Mapa Zasadzek</button></a>
+    </div>
     <form id="filter-form">
         <label for="name">ID:</label>
         <input type="text" id="id" name="id">
