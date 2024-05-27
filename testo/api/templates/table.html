@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Zasadzki Table</title>
+    <title>Tabela zasadzek</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Calibri', sans-serif;
+            background-color: azure;
+        }
+        .container {
+            text-align: center;
         }
         table {
             width: 100%;
@@ -15,12 +19,14 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #f2f2f2;
+            font-size: 1.3em;
         }
         form {
+            margin-top: 10px;
             margin-bottom: 20px;
         }
     </style>
@@ -72,18 +78,20 @@
     </script>
 </head>
 <body>
-    <h1>Zasadzki Table</h1>
-    <div>
-        <a href="{% url 'main-view' %}"><button>Menu</button></a>
-        <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
-        <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
-        <a href="{% url 'zasadzki-map' %}"><button>Mapa Zasadzek</button></a>
+    <div class="container">
+        <h1>Tabela zasadzek</h1>
+        <div>
+            <a href="{% url 'main-view' %}"><button>Menu</button></a>
+            <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
+            <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
+            <a href="{% url 'zasadzki-map' %}"><button>Mapa Zasadzek</button></a>
+        </div>
+        <form id="filter-form">
+            <label for="name">Wpisz ID:</label>
+            <input type="text" id="id" name="id">
+            <button type="submit">Filtruj</button>
+        </form>
     </div>
-    <form id="filter-form">
-        <label for="name">ID:</label>
-        <input type="text" id="id" name="id">
-        <button type="submit">Filter</button>
-    </form>
     <table>
         <thead>
             <tr>

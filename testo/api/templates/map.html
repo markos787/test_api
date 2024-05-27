@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map with Locations</title>
+    <title>Mapa zasadzek</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Calibri', sans-serif;
+            background-color: azure;
+        }
+        .container {
+            text-align: center;
+            padding-bottom: 15px;
+        }
         #map {
             width: 100%;
             height: 600px;
         }
+        .subtitles {
+            text-align: center;
+        }
+        .subtitles h2 {
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
-    <h1>Map with Locations</h1>
-    <div>
-        <a href="{% url 'main-view' %}"><button>Menu</button></a>
-        <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
-        <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
-        <a href="{% url 'zasadzki-table' %}"><button>Tabela Zasadzek</button></a>
+    <div class="container">
+    <h1>Mapa zasadzek</h1>
+        <div>
+            <a href="{% url 'main-view' %}"><button>Menu</button></a>
+            <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
+            <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
+            <a href="{% url 'zasadzki-table' %}"><button>Tabela Zasadzek</button></a>
+        </div>
     </div>
+
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -57,14 +76,16 @@
             map.setView([0, 0], 2);
         }
     </script>
-    <h2>Types of ambushes</h2>
-    <p>
-        0 - line ambush<br>
-        1 - L-type ambush<br>
-        2 - U-type ambush<br>
-        3 - V-type ambush<br>
-        4 - X-type ambush<br>
-        5 - no data
-    </p>
+    <div class="subtitles">
+        <h2>Rodzaje zasadzek</h2>
+        <p>
+            0 - zasadzka liniowa<br>
+            1 - zasadzka typu L<br>
+            2 - zasadzka typu U<br>
+            3 - zasadzka typu V<br>
+            4 - zasadzka typu X<br>
+            5 - brak danych
+        </p>
+    </div>
 </body>
 </html>

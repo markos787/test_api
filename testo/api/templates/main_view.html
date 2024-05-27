@@ -3,13 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Tytuł</title>
+    <title>API dla zasadzek na sprzęt wojskowy</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Calibri', sans-serif;
+            font-size: 36;
+            background: linear-gradient(to bottom, #ffffff, cyan)
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 4em;
+            margin: 0;
+        }
+        h2 {
+            font-size: 2em;
+            font-style: italic;
+            margin: 0;
+        }
+        .buttons {
+            margin-top: 50px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 10px;
+            font-size: 16px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-style: italic;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>API Tytuł</h1>
-    <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
-    <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
-    <a href="{% url 'zasadzki-table' %}"><button>Tabela Zasadzek</button></a>
-    <a href="{% url 'zasadzki-map' %}"><button>Mapa Zasadzek</button></a>
+    <div class="container">
+        <h1>API dla zasadzek na sprzęt wojskowy</h1>
+        <h2>Menu</h2>
+        <div class="buttons">
+            <a href="{% url 'zasadzki-list' %}"><button>Lista Zasadzek</button></a>
+            <a href="{% url 'zasadzki-list-create' %}"><button>Szukaj Zasadzek</button></a>
+            <a href="{% url 'zasadzki-table' %}"><button>Tabela Zasadzek</button></a>
+            <a href="{% url 'zasadzki-map' %}"><button>Mapa Zasadzek</button></a>
+        </div>
+    </div>
+    <div class="footer">
+        Exclusively made by: Marek Weis, WAT
+    </div>
 </body>
 </html>

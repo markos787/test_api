@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, status, viewsets
+from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import zasadzki, Location
 from .serializers import zasadzkiSerializer, LocationSerializer
@@ -26,6 +26,9 @@ def filter_zasadzki(queryset, request):
     
     return queryset
 
+def zasadzki_table(request):
+    return render(request, 'table.html')
+
 class zasadzkiFilter(django_filters.FilterSet):
     typ = django_filters.CharFilter(label='Typ')
 
@@ -50,9 +53,6 @@ class zasadzkiView(APIView):
             queryset = queryset.filter(id=id_param)
         serializer = zasadzkiSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-def zasadzki_table(request):
-    return render(request, 'table.html')
     
 class LocationView(APIView):
     def get(self, request, format=None):

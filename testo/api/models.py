@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.gis.db import models as models_gis
-import numpy as np
 
 # Create your models here.
 class zasadzki(models.Model):
