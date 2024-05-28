@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:8000 testo.wsgi:application
+    volumes:
+      - .:/container
+      - C:\OSGeo4W\bin:/osgeo4w/bin
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=testo.settings
+      - PATH=/osgeo4w/bin:$PATH  # Dodaj ścieżkę do GDAL do PATH
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Geodeta102!
+
+volumes:
+  postgres_data:

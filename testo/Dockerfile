@@ -1,23 +1,33 @@
-# syntax=docker/dockerfile:1.4
+# Wybierz obraz podstawowy
+FROM python:3.12.0-slim
 
-FROM --platform=$BUILDPLATFORM python:3.12-alpine AS builder
-EXPOSE 8000
-WORKDIR /app 
-# Install system dependencies
-RUN apk update
-RUN apk add \
-    pkgconfig \
-    gcc \
-    musl-dev \
-    bash \
-    postgres-dev
+# Ustaw zmienną środowiskową
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Install any needed packages specified in requirements.txt
-COPY requirements.txt /app
+# Skopiuj plik gunicorn.exe do katalogu /usr/local/bin wewnątrz kontenera
+COPY gunicorn.exe /usr/local/bin/
+
+# Zainstaluj Gunicorn
+RUN pip install gunicorn
+
+# Utwórz katalog roboczy
+WORKDIR /container
+
+# Skopiuj plik requirements.txt
+COPY requirements.txt /container/
+
+# Zainstaluj zależności
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the current directory contents into the container at /usr/src/app
-COPY . /app
-# Run server
-ENTRYPOINT [ "python"]
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+# Skopiuj resztę kodu aplikacji
+COPY . /container/
+
+# Dodaj bieżący katalog do zmiennej PATH
+ENV PATH="/testo:${PATH}"
+
+# Otwórz port
+EXPOSE 8000
+
+# Ustaw domyślną komendę startową
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "testo.wsgi:application"]

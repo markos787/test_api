@@ -1,0 +1,7 @@
+django
+djangorestframework
+djangorestframework-gis
+django-filter
+environs
+psycopg2-binary
+gunicorn
