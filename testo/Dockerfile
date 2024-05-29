@@ -5,11 +5,11 @@ FROM python:3.12.0-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Skopiuj plik gunicorn.exe do katalogu /usr/local/bin wewnątrz kontenera
-COPY gunicorn.exe /usr/local/bin/
-
 # Zainstaluj Gunicorn
 RUN pip install gunicorn
+
+# Skopiuj plik gunicorn.exe do katalogu /usr/local/bin wewnątrz kontenera
+COPY gunicorn.exe /usr/local/bin/
 
 # Utwórz katalog roboczy
 WORKDIR /container

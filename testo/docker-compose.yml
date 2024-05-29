@@ -9,7 +9,7 @@ services:
       - "8000:8000"
     environment:
       - DJANGO_SETTINGS_MODULE=testo.settings
-      - PATH=/osgeo4w/bin:$PATH  # Dodaj ścieżkę do GDAL do PATH
+      - PATH=/osgeo4w/bin:$PATH
     depends_on:
       - db
 
