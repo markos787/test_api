@@ -11,10 +11,8 @@ then
     echo "PostgreSQL started"
 fi
 
-# Instaluj Gunicorna
 pip install gunicorn
 
-# Przeprowadź migracje
 python manage.py migrate
 
 exec "$@"
