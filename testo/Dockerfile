@@ -1,15 +1,19 @@
 # Wybierz obraz podstawowy
-FROM python:3.12.0-slim
+FROM osgeo/gdal:ubuntu-full-3.3.0
 
-# Ustaw zmienną środowiskową
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+RUN apt-get update && apt-get install -y curl python3-pip  && rm -rf /var/lib/apt/lists/*
 
-# Zainstaluj Gunicorn
-RUN pip install gunicorn
+# # Ustaw zmienną środowiskową
+# ENV PYTHONDONTWRITEBYTECODE=1
+# ENV PYTHONUNBUFFERED=1
 
-# Skopiuj plik gunicorn.exe do katalogu /usr/local/bin wewnątrz kontenera
-COPY gunicorn.exe /usr/local/bin/
+# # Zainstaluj Gunicorn
+# RUN pip install gunicorn
+
+# # Skopiuj plik gunicorn.exe do katalogu /usr/local/bin wewnątrz kontenera
+# COPY gunicorn.exe /usr/local/bin/
+
+# RUN pip install django
 
 # Utwórz katalog roboczy
 WORKDIR /container
@@ -19,15 +23,16 @@ COPY requirements.txt /container/
 
 # Zainstaluj zależności
 RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install django
 
 # Skopiuj resztę kodu aplikacji
 COPY . /container/
 
-# Dodaj bieżący katalog do zmiennej PATH
-ENV PATH="/testo:${PATH}"
+# # Dodaj bieżący katalog do zmiennej PATH
+# ENV PATH="/testo:${PATH}"
 
-# Otwórz port
-EXPOSE 8000
+# # Otwórz port
+# EXPOSE 8000
 
-# Ustaw domyślną komendę startową
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "testo.wsgi:application"]
+# # Ustaw domyślną komendę startową
+# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "testo.wsgi:application"]

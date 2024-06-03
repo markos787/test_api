@@ -92,8 +92,8 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'Geodeta102!',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'HOST': 'db_container',
+        'PORT': '5432',
     }
 }
 
@@ -139,6 +139,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GDAL_LIBRARY_PATH = 'C:\\OSGeo4W\\bin\\gdal309.dll'
+# GDAL_LIBRARY_PATH = 'C:\\OSGeo4W\\bin\\gdal309.dll'
 
-GEOS_LIBRARY_PATH = 'C:\\OSGeo4W\\bin\\geos_c.dll'
+# GEOS_LIBRARY_PATH = 'C:\\OSGeo4W\\bin\\geos_c.dll'

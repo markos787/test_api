@@ -4,4 +4,5 @@ djangorestframework-gis
 django-filter
 environs
 psycopg2-binary
-gunicorn
+GDAL>=2.2.4
+geoalchemy2
