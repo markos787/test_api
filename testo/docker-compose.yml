@@ -20,7 +20,7 @@ services:
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Geodeta102!
+      POSTGRES_PASSWORD: ***********
 
 volumes:
   postgres_data:
